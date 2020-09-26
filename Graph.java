@@ -23,7 +23,7 @@ public class Graph{
 			Handler hnd= new ConsoleHandler();
 			hnd.setLevel(Level.FINE);
 			logger.addHandler(hnd);
-			logger.setLevel(Level.WARNING);
+			logger.setLevel(Level.FINE);
 			Logger LoggerRaiz= logger.getParent();
 			for(Handler h: LoggerRaiz.getHandlers())
 				h.setLevel(Level.OFF);
@@ -31,8 +31,10 @@ public class Graph{
 	}
 	
 	public void addNode(int node) { 
-		if(nodos.get(node)==null)
+		if(nodos.get(node)==null) {
 			nodos.put(node,node); 
+			logger.fine("El nodo se agrego correctamente"); 
+		} 
 		else 
 			logger.info("El nodo ya pertenece al grafo");
 	}
@@ -43,6 +45,7 @@ public class Graph{
 		Arco<String,Arco> nuevo=new Arco<String,Arco>(node1,node2); 
 		String key=node1+","+node2;
 		Arco<String,Arco> value= arcos.put(key, nuevo); 
+		logger.fine("El arco se agrego correctamente");
 		if(value!=null)
 		  logger.info("El arco ya pertenece al grafo"); 	
 		else 
@@ -51,8 +54,10 @@ public class Graph{
 	}
 	
 	public void removeNode(int node) { 
-		if(nodos.get(node)!=null)
+		if(nodos.get(node)!=null) {
 			nodos.remove(node); 
+			logger.fine("El nodo se elimino correctamente");
+		}
 		else 
 			logger.info("El nodo no esta en el grafo");
 		}
@@ -62,6 +67,7 @@ public class Graph{
 		String key;
 		if(nodos.get(node1)!=null && nodos.get(node2)!=null) {
 			Arco<String,Arco> a=arcos.remove(nuevo);  
+			logger.fine("El arco se elimino correctamente");
 			key=node1+","+node2;
 			if(a==null)
 				logger.warning("El arco no pertenece al grafo"); 
